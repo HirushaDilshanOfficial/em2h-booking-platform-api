@@ -19,7 +19,7 @@ export class ServicesController {
   }
 
   @Get()
-  // No @Roles decorator means ANY authenticated user can access this (both USER and ADMIN)
+
   findAll() {
     return this.servicesService.findAll();
   }

@@ -11,10 +11,10 @@ export class BookingsController {
 
   @Post()
   create(@Request() req: any, @Body() createBookingDto: CreateBookingDto) {
-    // If the user is logged in, req.user will exist (but we need to manually extract from auth header since no guard here)
-    // For simplicity, we can pass null or undefined for the userId if they are guest.
-    // Wait, since there is no guard, req.user will be undefined.
-    // If we want to capture logged in users, we can use an optional auth guard, but let's just keep it simple: guests pass no user id.
+
+
+
+
     const userId = req.user?.userId || null;
     return this.bookingsService.create(userId, createBookingDto);
   }

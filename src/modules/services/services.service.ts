@@ -30,7 +30,7 @@ export class ServicesService {
   }
 
   async update(id: number, updateServiceDto: UpdateServiceDto) {
-    // Check if it exists first
+
     await this.findOne(id);
     
     return this.prisma.service.update({
@@ -40,7 +40,7 @@ export class ServicesService {
   }
 
   async remove(id: number) {
-    // Check if it exists first
+
     await this.findOne(id);
     
     return this.prisma.service.delete({
