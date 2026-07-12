@@ -1,0 +1,29 @@
+How to Run the EM2H Booking Platform API
+==========================================
+
+Follow these simple steps to run the project on your computer:
+
+Step 1: Install Dependencies
+----------------------------
+Open your terminal, go to the project folder, and run:
+npm install
+
+Step 2: Setup Environment Variables
+-----------------------------------
+1. Create a file named ".env" in the main project folder.
+2. Open the ".env.example" file and copy everything inside it.
+3. Paste it into your new ".env" file.
+4. Replace the database URL and JWT secret with your own actual details.
+
+Step 3: Setup the Database
+--------------------------
+Run this command to create the database tables:
+npx prisma migrate dev
+
+Step 4: Start the Server
+------------------------
+Run this command to start the application:
+npm run start:dev
+
+The server will start running at:
+http://localhost:3000
