@@ -1,0 +1,123 @@
+#Hirusha Dilshan DOC
+
+Base URL: http://localhost:3000
+
+
+-----------------------------------------
+1. Authentication
+-----------------------------------------
+
+1.1 Register a new User
+- Method: POST
+- URL: /api/v1/auth/register
+- Body (JSON):
+{
+  "email": "admin@example.com",
+  "password": "password123",
+  "name": "Admin User",
+  "role": "ADMIN" 
+}
+
+1.2 Login
+- Method: POST
+- URL: /api/v1/auth/login
+- Body (JSON):
+{
+  "email": "admin@example.com",
+  "password": "password123"
+}
+
+
+
+-----------------------------------------
+2. Services Management
+-----------------------------------------
+
+2.1 Create a Service (Admin Only)
+- Method: POST
+- URL: /api/v1/services
+- Auth: Bearer Token required
+- Body (JSON):
+{
+  "title": "Full Body Massage",
+  "description": "Relaxing massage for 1 hour",
+  "duration": 60,
+  "price": 5000.00
+}
+
+
+
+
+
+
+
+2.2 Get All Services
+- Method: GET
+- URL: /api/v1/services
+- Auth: Bearer Token required
+
+2.3 Get a Specific Service
+- Method: GET
+- URL: /api/v1/services/1
+- Auth: Bearer Token required
+
+2.4 Update a Service (Admin Only)
+- Method: PATCH
+- URL: /api/v1/services/1
+- Auth: Bearer Token required
+- Body (JSON):
+{
+  "price": 5500.00,
+  "isActive": true
+}
+
+2.5 Delete a Service (Admin Only)
+- Method: DELETE
+- URL: /api/v1/services/1
+- Auth: Bearer Token required
+
+
+-----------------------------------------
+3. Booking Management
+-----------------------------------------
+
+3.1 Create a Booking (Public / Guest Allowed)
+- Method: POST
+- URL: /api/v1/bookings
+- Auth: Not required (Optional if user is logged in)
+- Body (JSON):
+{
+  "customerName": "Kamal Perera",
+  "customerEmail": "kamal@example.com",
+  "customerPhone": "0771234567",
+  "serviceId": 1,
+  "bookingDate": "2026-12-31",
+  "bookingTime": "10:00 AM",
+  "notes": "First time customer"
+}
+
+3.2 Get All Bookings
+- Method: GET
+- URL: /api/v1/bookings
+- Auth: Bearer Token required (Admins see all, Users see only their own)
+- Optional Query Parameters: ?search=Kamal&status=PENDING
+
+3.3 Get a Specific Booking
+- Method: GET
+- URL: /api/v1/bookings/1
+- Auth: Bearer Token required
+
+3.4 Update Booking Status
+- Method: PATCH
+- URL: /api/v1/bookings/1/status
+- Auth: Bearer Token required (Admins can set ANY status, Users can only set CANCELLED)
+- Body (JSON):
+{
+  "status": "CONFIRMED" 
+}
+
+
+3.5 Cancel (Delete) a Booking
+- Method: DELETE
+- URL: /api/v1/bookings/1
+- Auth: Bearer Token required (This will change the status to CANCELLED)
