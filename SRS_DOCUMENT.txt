@@ -1,0 +1,55 @@
+Software Requirements Specification (SRS)
+Project Name: EM2H Booking Platform API
+
+1. Introduction
+---------------
+The EM2H Booking Platform API is a backend system designed to handle bookings for various services. It allows administrators to manage services and monitor bookings, while customers can view services and make bookings easily.
+
+2. Technologies Used
+--------------------
+- Framework: NestJS (Node.js)
+- Database: PostgreSQL (NeonDB)
+- ORM: Prisma
+- Language: TypeScript
+- Authentication: JWT (JSON Web Tokens)
+
+3. User Roles
+-------------
+There are three main types of users in this system:
+a) Admin: Has full access to manage services and all bookings.
+b) Customer (Logged In): Can view services, make bookings, and manage only their own bookings.
+c) Guest (Not Logged In): Can view services and make bookings, but cannot view booking history.
+
+4. Functional Requirements
+--------------------------
+4.1 Authentication System
+- Users can register by providing an email, password, and name.
+- Users can log in using their email and password to receive a secure JWT token.
+- Passwords must be securely hashed before saving to the database.
+
+4.2 Service Management
+- Admin can create new services (requires Admin token).
+- Admin can update existing services.
+- Admin can delete services.
+- Anyone can view the list of available services.
+- Anyone can view the details of a single service.
+
+4.3 Booking Management
+- Anyone can create a booking for a specific service on a specific date.
+- Admin can view all bookings made by all users.
+- Logged-in customers can view only the bookings they created.
+- Admin can update the status of a booking (e.g., CONFIRMED, COMPLETED).
+- Logged-in customers can cancel their own bookings (Soft delete: status changes to CANCELLED).
+- The system must prevent booking for past dates.
+
+5. Database Structure (Main Tables)
+-----------------------------------
+- User Table: Stores user details (id, email, password, name, role).
+- Service Table: Stores service details (id, name, description, price, duration).
+- Booking Table: Stores booking details (id, date, status, userId, serviceId).
+
+6. Non-Functional Requirements
+------------------------------
+- Security: All protected routes require a valid JWT token. Admins are protected by a specific Role Guard.
+- Reliability: The system should handle errors gracefully and provide clear error messages (e.g., 404 Not Found, 401 Unauthorized).
+- Performance: The database uses connection pooling (PgBouncer) for fast database connections.
